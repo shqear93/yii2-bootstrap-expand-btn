@@ -1,0 +1,32 @@
+{
+  "name": "shqear/yii2-embedjs",
+  "description": "Embed JS with IDE checking or intellisense.",
+  "keywords": [
+    "javascript",
+    "js",
+    "expand",
+    "bootstrap",
+    "yii2",
+    "extension",
+    "button"
+  ],
+  "type": "yii2-extension",
+  "license": "BSD-3-Clause",
+  "authors": [
+    {
+      "name": "Khaled AbuShqear",
+      "email": "qmax93@gmail.com",
+      "homepage": "https://fb.com/shqear"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "yiisoft/yii2": "*",
+    "bower-asset/bootstrap-expand-btn": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "shqear\\widgets\\": ""
+    }
+  }
+}
