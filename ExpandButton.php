@@ -10,26 +10,49 @@ namespace shqear\widgets;
 
 use yii\base\Widget;
 use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
+use yii\base\Exception;
 
 /**
  * Description of ExpandButton
  */
 class ExpandButton extends Widget
 {
-    public $label = 'Button';
+    const TYPE_PRIMARY = 'primary';
+    const TYPE_SUCCESS = 'success';
+    const TYPE_INFO = 'info';
+    const TYPE_WARNING = 'warning';
+    const TYPE_DANGER = 'danger';
+    const TYPE_LINK = 'link';
+
+    public $label = null;
 
     /**
      * @var array the HTML attributes of the button.
      * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
      */
-    public $options = ['class' => 'button'];
+    public $options = ['class' => 'btn'];
 
     /**
      * The button url, used only for split button
      * @var string Button url
      */
-    public $url = '#';
+    public $url = null;
+
+    /**
+     * The button url, used only for split button
+     * @var string Button url
+     */
+    public $urlOptions = [];
+
+    /**
+     * @var string icon class
+     */
+    public $iconClass = 'glyphicon glyphicon-star';
+
+    /**
+     * @var string button type
+     */
+    public $type = self::TYPE_PRIMARY;
 
     /**
      * @var string the tag to use to render the button
@@ -46,59 +69,26 @@ class ExpandButton extends Widget
      */
     public function run()
     {
-        /*$dropdown = Dropdown::begin($this->getDropdownConfig());
-        echo "\n" . $this->renderButton($dropdown);
-        Dropdown::end();
-
-        $this->registerPlugin('button');*/
-    }
-
-    /**
-     * Generates the button dropdown.
-     * @return string the rendering result.
-     */
-    protected function renderButton($dropdown)
-    {
-        /*$dropdownId = $dropdown->getId();
-
-        $label = $this->label;
-        if ($this->encodeLabel) {
-            $label = Html::encode($label);
-        }
-        if ($this->split) {
-            $this->tagName = 'a';
-            Html::addCssClass($this->options, 'button');
-            Html::addCssClass($this->options, 'split');
-            $options = $this->options;
-            $label .= Html::tag('span', '', ['data-dropdown' => $dropdownId]);
+        ExpandButtonAsset::register(\Yii::$app->view);
+        if ($this->url) {
+            echo Html::a($this->renderButton(), $this->url, $this->urlOptions);
         } else {
-            Html::addCssClass($this->options, 'dropdown');
-            $options = $this->options;
-
-            $options['data-dropdown'] = $dropdownId;
+            echo $this->renderButton();
         }
-
-        return Button::widget([
-            'tagName' => $this->tagName,
-            'label' => $label,
-            'options' => $options,
-            'url' => $this->url,
-            'encodeLabel' => false,
-        ]) . "<br />\n";*/
     }
 
     /**
-     * Get config for [[Dropdown]] widget
-     * @return array config options
+     * Generates the expand button.
+     * @return string the rendering result.
+     * @throws Exception
      */
-    protected function getDropdownConfig()
+    protected function renderButton()
     {
-        /*$config = $this->dropdown;
-        $config['id'] = ArrayHelper::getValue($config, 'id', null);
-        $config['clientOptions'] = false;
-        $config['view'] = $this->getView();
-
-        return $config;*/
+        if (empty($this->label)) {
+            throw new Exception('you must set \'label\' for expand button');
+        }
+        Html::addCssClass($this->options, ['btn-' . $this->type, 'btn-expand']);
+        $label = $this->encodeLabel ? Html::encode($this->label) : $this->label;
+        return Html::tag($this->tagName, Html::tag('i', null, ['class' => $this->iconClass]) . ' ' . $label, $this->options);
     }
-
 }
