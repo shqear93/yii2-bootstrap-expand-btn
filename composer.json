@@ -22,7 +22,6 @@
   "minimum-stability": "dev",
   "require": {
     "yiisoft/yii2": "*",
-    "bower-asset/bootstrap-expand-btn": "*"
   },
   "autoload": {
     "psr-4": {

@@ -6,7 +6,7 @@
  * @version 1.0.0
  */
 
-namespace shqear\bootstrap;
+namespace shqear\widgets;
 
 use yii\base\Widget;
 use yii\helpers\Html;
