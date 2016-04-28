@@ -1,6 +1,6 @@
 {
   "name": "shqear/yii2-bootstrap-expand-btn",
-  "description": "Embed JS with IDE checking or intellisense.",
+  "description": "Provide expanding buttons for Bootstrap 3",
   "keywords": [
     "javascript",
     "js",
